@@ -140,6 +140,11 @@ botaoSubmit.addEventListener("click", ()=>{
             //Adicionando o usuário validado no localStorage
             localStorage.setItem("user-validado", JSON.stringify(userValidado));
 
+            //criando um token com o Math.random
+            const token = Math.random().toString(16).substring(2)+Math.random().toString(16).substring(2);
+
+            localStorage.setItem("token", token);
+
             //Redirect
             setTimeout(() =>{
                 window.location.href = "../home.html"
