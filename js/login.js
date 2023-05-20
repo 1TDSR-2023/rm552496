@@ -63,59 +63,64 @@ eyePass.addEventListener("click", () =>{
 // }
 
 //Lista de usuários
-let listaDeUsuarios = [
-    {
-        nomeCompleto: "José das Couves",
-        emailUsuario: "lucas@email.com",
-        senhaUsuario: "123456"
-    },
-    {
-        nomeCompleto: "Juan Pelego",
-        emailUsuario: "juan@email.com",
-        senhaUsuario: "123456"
-    },
-    {
-        nomeCompleto: "Caio Tulipa",
-        emailUsuario: "tulipa@email.com",
-        senhaUsuario: "123456"
-    },
-    {
-        nomeCompleto: "Derick Gouvea",
-        emailUsuario: "dede@email.com",
-        senhaUsuario: "123456"
-    },
-    {
-        nomeCompleto: "Matheuzim Danado",
-        emailUsuario: "mateu@email.com",
-        senhaUsuario: "123456"
-    },
-    {
-        nomeCompleto: "Leunardo Camacho",
-        emailUsuario: "lelu@email.com",
-        senhaUsuario: "123456"
-    }
-];
+// let listaDeUsuarios = [
+//     {
+//         nomeCompleto: "José das Couves",
+//         emailUsuario: "lucas@email.com",
+//         senhaUsuario: "123456"
+//     },
+//     {
+//         nomeCompleto: "Juan Pelego",
+//         emailUsuario: "juan@email.com",
+//         senhaUsuario: "123456"
+//     },
+//     {
+//         nomeCompleto: "Caio Tulipa",
+//         emailUsuario: "tulipa@email.com",
+//         senhaUsuario: "123456"
+//     },
+//     {
+//         nomeCompleto: "Derick Gouvea",
+//         emailUsuario: "dede@email.com",
+//         senhaUsuario: "123456"
+//     },
+//     {
+//         nomeCompleto: "Matheuzim Danado",
+//         emailUsuario: "mateu@email.com",
+//         senhaUsuario: "123456"
+//     },
+//     {
+//         nomeCompleto: "Leunardo Camacho",
+//         emailUsuario: "lelu@email.com",
+//         senhaUsuario: "123456"
+//     }
+// ];
 
+// localStorage.setItem("lista-user", JSON.stringify(listaDeUsuarios));
 
 const botaoSubmit = document.querySelector("#btnSubmit");
 
 botaoSubmit.addEventListener("click", ()=>{
     
-    //Criando um objeto de validação
-    let userValidado = {
-        emailUsuarioValidado : inputEmail.value,
-        senhaUsuarioValidado : inputPass.value
+    //Criando um objeto usuarioLogado
+    let userLogado = {
+        emailUsuarioLogado : inputEmail.value,
+        senhaUsuarioLogado : inputPass.value
     }
+
+    let userValidado = {}
     
     //Criando uma iteração com a lista de objetos para realizar a validação
     // com o usuarioValidado
     try{
+        //Recuperando do localStorage
+        let listaDeUsuarios = JSON.parse(localStorage.getItem("lista-user"));
         listaDeUsuarios.forEach((usuario) =>{
             //Realizando a validaçao
             //Comparando cada objeto da lista com o objeto montado com os dados 
             //que vieram do formulario
 
-            if(userValidado.emailUsuarioValidado == usuario.emailUsuario && userValidado.senhaUsuarioValidado == usuario.
+            if(userLogado.emailUsuarioLogado == usuario.emailUsuario && userLogado.senhaUsuarioLogado == usuario.
                 senhaUsuario){
                     userValidado = usuario;
                     throw "VALIDADO";
@@ -131,6 +136,9 @@ botaoSubmit.addEventListener("click", ()=>{
         if(msg == "VALIDADO"){
             msgStatus.setAttribute("style", "color: #00ff00");
             msgStatus.innerHTML = `<span><strong>Usuário: ${userValidado.nomeCompleto} Login efetuado com sucesso!</strong></span>`
+
+            //Adicionando o usuário validado no localStorage
+            localStorage.setItem("user-validado", JSON.stringify(userValidado));
 
             //Redirect
             setTimeout(() =>{
